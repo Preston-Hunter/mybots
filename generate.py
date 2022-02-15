@@ -22,7 +22,7 @@ def Create_Robot():
     pyrosim.Send_Joint(name="Torso_FrontLeg", parent="Torso", child="FrontLeg", type="revolute", position=[.5, 0, 1])
     pyrosim.Send_Cube(name="FrontLeg", pos=[0.5, 0, -0.5], size=[length, width, height])
     pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso", child="BackLeg", type="revolute", position=[-.5,0, 1])
-    pyrosim.Send_Cube(name="BackLeg", pos=[-.5,0, -.5], size=[length, width, height])
+    pyrosim.Send_Cube(name="BackLeg", pos=[-.5, 0, -.5], size=[length, width, height])
 
     # pyrosim.Send_Cube(name="Link0", pos=[x, z, y], size=[length, width, height])
     # pyrosim.Send_Joint(name="Link0_Link1", parent="Link0", child="Link1", type="revolute", position=[x, z, y + .5])

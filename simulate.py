@@ -3,7 +3,8 @@ import time
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy as numpy
-
+import random
+import matplotlib
 physicsClient = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
@@ -14,10 +15,17 @@ robotId = p.loadURDF("body.urdf")
 p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
 
-backLegSensorValues = numpy.zeros(10000)
-frontLegSensorValues = numpy.zeros(10000)
+runtime = 100
 
-for _ in range(10000):
+backLegSensorValues = numpy.zeros(runtime)
+frontLegSensorValues = numpy.zeros(runtime)
+
+# Sinusoidal vector
+sinusoidal_values = numpy.linspace(0, 2*numpy.pi, runtime)
+sinusoidal_values = numpy.sin(sinusoidal_values)
+matplotlib.pyplot.plot(sinusoidal_values, label="sinusoidal_values", linewidth =4)
+
+for _ in range(runtime):
     p.stepSimulation()
     backLegSensorValues[_] = pyrosim.Get_Touch_Sensor_Value_For_Link("BackLeg")
     frontLegSensorValues[_] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
@@ -25,8 +33,14 @@ for _ in range(10000):
         bodyIndex=robotId,
         jointName="Torso_BackLeg",
         controlMode=p.POSITION_CONTROL,
-        targetPosition=0.0,
-        maxForce=500)
+        targetPosition=(random.random() - 0.5) * numpy.pi,
+        maxForce=40)
+    pyrosim.Set_Motor_For_Joint(
+        bodyIndex=robotId,
+        jointName="Torso_FrontLeg",
+        controlMode=p.POSITION_CONTROL,
+        targetPosition=(random.random() - 0.5) * numpy.pi,
+        maxForce=40)
     print(frontLegSensorValues[_])
     time.sleep(1.0 / 60)
     # print(_)
