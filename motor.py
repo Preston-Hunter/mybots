@@ -20,14 +20,12 @@ class MOTOR:
         self.motorValues = numpy.sin(self.frequency * self.motorValues + self.offset) * self.amplitude
 
     def Set_Value(self, step):
-        # todo another bloody key error. same as with sensors.(#97 in hw)
         pyrosim.Set_Motor_For_Joint(
             bodyIndex=self.robotId,
             jointName=self.jointName,
             controlMode=p.POSITION_CONTROL,
             targetPosition=self.motorValues[step],
             maxForce=40)
-        # todo it is not moving why
 
         # pyrosim.Set_Motor_For_Joint(
         #     bodyIndex=robotId,

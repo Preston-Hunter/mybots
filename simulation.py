@@ -9,7 +9,7 @@ import time
 class SIMULATION:
 
     def __init__(self):
-        self.runtime = 10000
+        self.runtime = 1000
 
         self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
@@ -18,7 +18,6 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT(self.runtime)
 
-        pyrosim.Prepare_To_Simulate(0)
 
 
     def __del__(self):

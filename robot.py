@@ -19,22 +19,18 @@ class ROBOT:
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:
-            print(linkName)
             self.sensors[linkName] = SENSOR(linkName, self.runtime)
 
     def Sense(self, step):
-        # self.sensors["FrontLeg"].Get_Value(step)
         print(step)
         for sensor in self.sensors:
             self.sensors[sensor].Get_Value(step)
-            print(sensor)
 
     def Prepare_To_Act(self):
         for jointName in pyrosim.jointNamesToIndices:
             self.motors[jointName] = MOTOR(jointName, self.runtime, self.robotId)
 
     def Act(self, step):
-        print("he")
         for motor in self.motors:
             self.motors[motor].Set_Value(step)
 
