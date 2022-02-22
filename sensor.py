@@ -10,7 +10,6 @@ class SENSOR:
 
     def Get_Value(self, step):
         self.values[step] = pyrosim.Get_Touch_Sensor_Value_For_Link('FrontLeg')
-        print(self.values)
 
     def Save_Values(self):
         save_location = "data/" + self.linkName + ".npy"
