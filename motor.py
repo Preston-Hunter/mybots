@@ -27,14 +27,6 @@ class MOTOR:
             targetPosition=self.motorValues[step],
             maxForce=40)
 
-        # pyrosim.Set_Motor_For_Joint(
-        #     bodyIndex=robotId,
-        #     jointName="Torso_FrontLeg",
-        #     controlMode=p.POSITION_CONTROL,
-        #     targetPosition=target_angles_front[_],
-        #     maxForce=40)
-
     def Save_Values(self):
-            save_location = "data/" + self.jointName + "MotorValues.npy"
-            numpy.save(save_location, self.motorValues)
-
+        save_location = "data/" + self.jointName + "MotorValues.npy"
+        numpy.save(save_location, self.motorValues)

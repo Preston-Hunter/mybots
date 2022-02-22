@@ -21,6 +21,7 @@ class SIMULATION:
 
 
     def __del__(self):
+        # todo call save values?
         p.disconnect()
 
     def Run(self):

@@ -34,3 +34,11 @@ class ROBOT:
         for motor in self.motors:
             self.motors[motor].Set_Value(step)
 
+    def Save_Motors(self):
+        for motor in self.motors:
+            motor.Save_Values()
+
+    def Save_Sensors(self):
+        for sensor in self.sensors:
+            sensor.Save_Values()
+
