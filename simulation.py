@@ -30,7 +30,6 @@ class SIMULATION:
             self.robot.Sense(step)
             self.robot.Act(step)
 
-
-            # print(frontLegSensorValues[_])
+            print(step)
             time.sleep(1.0 / 60)
             #print(_)

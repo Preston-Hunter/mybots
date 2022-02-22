@@ -22,7 +22,6 @@ class ROBOT:
             self.sensors[linkName] = SENSOR(linkName, self.runtime)
 
     def Sense(self, step):
-        print(step)
         for sensor in self.sensors:
             self.sensors[sensor].Get_Value(step)
 
