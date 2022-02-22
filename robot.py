@@ -7,6 +7,7 @@ import pyrosim.pyrosim as pyrosim
 class ROBOT:
 
     def __init__(self, runtime):
+        self.sensors = {}
         self.runtime = runtime
 
         self.motors = {}
@@ -16,14 +17,22 @@ class ROBOT:
         self.Prepare_To_Sense()
 
     def Prepare_To_Sense(self):
-        self.sensors = {}
         for linkName in pyrosim.linkNamesToIndices:
             print(linkName)
             self.sensors[linkName] = SENSOR(linkName, self.runtime)
 
     def Sense(self, step):
-        #self.sensors["FrontLeg"].Get_Value(step)
+        # self.sensors["FrontLeg"].Get_Value(step)
         print(step)
         for sensor in self.sensors:
             self.sensors[sensor].Get_Value(step)
             print(sensor)
+
+    def Prepare_To_Act(self):
+        for jointName in pyrosim.jointNamesToIndices:
+            print(jointName)
+            self.motors[jointName] = MOTOR(jointName, self.runtime, self.robotId)
+
+    def Act(self, step):
+        for motor in self.motors:
+            self.motors[motor].Set_Value(step)

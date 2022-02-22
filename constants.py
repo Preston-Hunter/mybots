@@ -1,8 +1,8 @@
 import numpy
 
-amplitudeFront = numpy.pi / 4.0
-frequencyFront = 10
-phaseOffsetFront = 0
+amplitude = numpy.pi / 4.0
+frequency = 10
+phaseOffset = 0
 
 amplitudeBack = numpy.pi / 4.0
 frequencyBack = 10
