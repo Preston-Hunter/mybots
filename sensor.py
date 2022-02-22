@@ -13,3 +13,8 @@ class SENSOR:
         # frontLegSensorValues[_] = pyrosim.Get_Touch_Sensor_Value_For_Link("FrontLeg")
         # todo why this no work. key error (#65 ish in hw)
         print(self.values)
+
+    def Save_Values(self):
+        save_location = "data/" + self.linkName + ".npy"
+        numpy.save(save_location, self.values)
+

@@ -14,7 +14,6 @@ from simulation import SIMULATION
 # # exit()
 
 #
-# numpy.save("data/backLegSensorValues.npy", backLegSensorValues)
 # numpy.save("data/frontLegSensorValues.npy", frontLegSensorValues)
 # numpy.save("data/sinusoidalValues.npy", target_angles)
 simulation = SIMULATION()

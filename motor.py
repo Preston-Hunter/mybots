@@ -8,7 +8,7 @@ class MOTOR:
 
     def __init__(self, jointName, runtime, robotId):
         self.jointName = jointName
-        self.Prepare_to_Act()
+        self.Prepare_to_Act(runtime)
         self.robotId = robotId
 
     def Prepare_to_Act(self, runtime):
@@ -19,14 +19,15 @@ class MOTOR:
         self.motorValues = numpy.linspace(0, 2 * numpy.pi, runtime)
         self.motorValues = numpy.sin(self.frequency * self.motorValues + self.offset) * self.amplitude
 
-
     def Set_Value(self, step):
+        # todo another bloody key error. same as with sensors.(#97 in hw)
         pyrosim.Set_Motor_For_Joint(
             bodyIndex=self.robotId,
             jointName=self.jointName,
             controlMode=p.POSITION_CONTROL,
             targetPosition=self.motorValues[step],
             maxForce=40)
+        # todo it is not moving why
 
         # pyrosim.Set_Motor_For_Joint(
         #     bodyIndex=robotId,
@@ -34,3 +35,8 @@ class MOTOR:
         #     controlMode=p.POSITION_CONTROL,
         #     targetPosition=target_angles_front[_],
         #     maxForce=40)
+
+    def Save_Values(self):
+            save_location = "data/" + self.jointName + "MotorValues.npy"
+            numpy.save(save_location, self.motorValues)
+
