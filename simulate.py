@@ -18,7 +18,6 @@ from simulation import SIMULATION
 #
 # runtime = 1000
 #
-# backLegSensorValues = numpy.zeros(runtime)
 # frontLegSensorValues = numpy.zeros(runtime)
 #
 # # Sinusoidal vector
