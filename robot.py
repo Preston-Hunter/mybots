@@ -30,7 +30,6 @@ class ROBOT:
 
     def Prepare_To_Act(self):
         for jointName in pyrosim.jointNamesToIndices:
-            print(jointName)
             self.motors[jointName] = MOTOR(jointName, self.runtime, self.robotId)
 
     # todo what is num 72, seem to be doing t->desiredAngle for no reason
@@ -40,15 +39,15 @@ class ROBOT:
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName)
                 self.motors[jointName].Set_Value(desiredAngle)
-                print(neuronName, "=", jointName, "storing ", desiredAngle)
+                # print(neuronName, "=", jointName, "storing ", desiredAngle)
 
     def Think(self):
         self.nn.Update()
         self.nn.Print()
 
-    def Save_Motors(self):
-        for motor in self.motors:
-            motor.Save_Values()
+    # def Save_Motors(self): # removed method in motor.py
+    #     for motor in self.motors:
+    #         motor.Save_Values()
 
     def Save_Sensors(self):
         for sensor in self.sensors:
