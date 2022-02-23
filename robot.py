@@ -4,6 +4,7 @@ import pybullet as p
 import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
+
 class ROBOT:
 
     def __init__(self, runtime):
@@ -32,15 +33,21 @@ class ROBOT:
             print(jointName)
             self.motors[jointName] = MOTOR(jointName, self.runtime, self.robotId)
 
-    def Act(self, step):
-        for motor in self.motors:
-            self.motors[motor].Set_Value(step)
+    # todo what is num 72, seem to be doing t->desiredAngle for no reason
+    def Act(self, desiredAngle):
+        for neuronName in self.nn.Get_Neuron_Names():
+            if self.nn.Is_Motor_Neuron(neuronName):
+                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                self.motors[jointName].Set_Value(desiredAngle)
+                print(neuronName, "=", jointName, "storing ", desiredAngle)
 
+        # for motor in self.motors:
+        #     self.motors[motor].Set_Value(step)
 
     def Think(self):
         self.nn.Update()
         self.nn.Print()
-
 
     def Save_Motors(self):
         for motor in self.motors:
@@ -49,4 +56,3 @@ class ROBOT:
     def Save_Sensors(self):
         for sensor in self.sensors:
             sensor.Save_Values()
-
