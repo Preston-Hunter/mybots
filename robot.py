@@ -42,9 +42,6 @@ class ROBOT:
                 self.motors[jointName].Set_Value(desiredAngle)
                 print(neuronName, "=", jointName, "storing ", desiredAngle)
 
-        # for motor in self.motors:
-        #     self.motors[motor].Set_Value(step)
-
     def Think(self):
         self.nn.Update()
         self.nn.Print()
