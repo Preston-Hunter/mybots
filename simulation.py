@@ -9,7 +9,7 @@ import time
 class SIMULATION:
 
     def __init__(self):
-        self.runtime = 4000
+        self.runtime = 180
 
         self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
