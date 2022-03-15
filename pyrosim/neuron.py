@@ -65,6 +65,7 @@ class NEURON:
                 self.Allow_Presynaptic_Neuron_To_Influence_Me(synapses[synapse].Get_Weight(), neurons[synapse[0]].Get_Value())
                 print(synapse[0], synapse[1])
         # todo -1 or 1 for after value, step 33
+        self.Threshold()
         print("After loop:", self.Get_Value())
 
 
