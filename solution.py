@@ -1,6 +1,10 @@
 import numpy
-import random
 from pyrosim import pyrosim
+import os
+
+length = 1
+width = 1
+height = 1
 
 class SOLUTION:
 
@@ -16,6 +20,7 @@ class SOLUTION:
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
+        os.system("python simulate.py")
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
@@ -44,7 +49,8 @@ class SOLUTION:
         for currentRow in range(0, 3):
             for currentColumnPlus3 in range(3, 5):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumnPlus3,
-                                     weight=(self.weights[currentRow][currentColumnPlus3]))
+                                     weight=(self.weights[currentRow][currentColumnPlus3 - 3]))
+                print(self.weights[currentRow][currentColumnPlus3 - 3])
 
         pyrosim.End()
 

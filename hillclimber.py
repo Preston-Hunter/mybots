@@ -4,7 +4,6 @@ class HILLCLIMBER:
 
     def __init__(self):
         self.parent = SOLUTION()
-        pass
 
     def Evolve(self):
-        pass
+        self.parent.Evaluate()
