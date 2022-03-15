@@ -10,7 +10,6 @@ height = 1
 
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
-    #pyrosim.Send_Cube(name="Box", pos=[x, z, y], size=[length, width, height])
     pyrosim.End()
     print("ss")
 
@@ -36,6 +35,8 @@ def Generate_Brain():
 
     pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
     pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
+
+    pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=3, weight=1.0)
     pyrosim.End()
 
 
