@@ -54,4 +54,9 @@ class ROBOT:
             sensor.Save_Values()
 
     def Get_Fitness(self):
-        pass
+        stateOfLinkZero = p.getLinkState(self.robotId, 0)
+        positionOfLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = positionOfLinkZero[0]
+        f = open("fitness.txt", "a")
+        f.write(str(xCoordinateOfLinkZero) + "\n")
+        f.close()
