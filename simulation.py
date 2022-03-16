@@ -33,3 +33,6 @@ class SIMULATION:
 
             print(step)
             time.sleep(1.0 / 60)
+
+    def Get_Fitness(self):
+        self.robot.Get_Fitness()

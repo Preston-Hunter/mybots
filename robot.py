@@ -52,3 +52,6 @@ class ROBOT:
     def Save_Sensors(self):
         for sensor in self.sensors:
             sensor.Save_Values()
+
+    def Get_Fitness(self):
+        pass
