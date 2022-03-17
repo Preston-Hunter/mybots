@@ -1,5 +1,6 @@
 from solution import SOLUTION
 import constants as c
+import copy
 
 class HILLCLIMBER:
 
@@ -23,10 +24,12 @@ class HILLCLIMBER:
         self.Select()
 
     def Spawn(self):
-        pass
+        self.child = copy.deepcopy(self.parent)
+
 
     def Mutate(self):
-        pass
+        self.child.Mutate()
+
 
     def Select(self):
         pass
