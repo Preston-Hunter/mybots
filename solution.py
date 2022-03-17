@@ -18,11 +18,11 @@ class SOLUTION:
 
 
 
-    def Evaluate(self):
+    def Evaluate(self, directOrGUI):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python simulate.py")
+        os.system("python simulate.py " + directOrGUI)
         fitnessFile = open("fitness.txt", "r")
         self.fitness = float(fitnessFile.read())
         fitnessFile.close()
@@ -62,7 +62,7 @@ class SOLUTION:
             for currentColumnPlus3 in range(3, 5):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumnPlus3,
                                      weight=(self.weights[currentRow][currentColumnPlus3 - 3]))
-                print(self.weights[currentRow][currentColumnPlus3 - 3])
+                # print(self.weights[currentRow][currentColumnPlus3 - 3]) print synaptic weights
 
         pyrosim.End()
 

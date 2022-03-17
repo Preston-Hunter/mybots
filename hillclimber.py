@@ -8,9 +8,10 @@ class HILLCLIMBER:
         self.parent = SOLUTION()
 
     def Evolve(self):
-        self.parent.Evaluate()
+        self.parent.Evaluate("GUI")
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
+
 
 
 
@@ -19,7 +20,7 @@ class HILLCLIMBER:
 
         self.Mutate()
 
-        self.child.Evaluate()
+        self.child.Evaluate("DIRECT")
 
         self.Print()
 
@@ -41,5 +42,10 @@ class HILLCLIMBER:
             self.parent = self.child
 
 
+    def Show_Best(self):
+        print("Current Fitness: " + str(self.parent.fitness))
+
+        self.parent.Evaluate("GUI")
+
     def Print(self):
-        print("Parent fitness: " + str(self.parent.fitness) + " Child Fitness: " + str(self.child.fitness))
+        print("\nParent fitness: " + str(self.parent.fitness) + " Child Fitness: " + str(self.child.fitness))

@@ -7,10 +7,18 @@ import time
 
 class SIMULATION:
 
-    def __init__(self):
+    def __init__(self, directOrGUI):
         self.runtime = 180
+        #bool variable made by me, in order to have Drect run fast
+        # and have GUI use time pause to have gui visible
+        self.GUI = True
 
-        self.physicsClient = p.connect(p.GUI)
+        if directOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+            self.GUI = False
+        else:
+            self.physicsClient = p.connect(p.GUI)
+
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0, 0, -9.8)
 
@@ -32,7 +40,8 @@ class SIMULATION:
             self.robot.Act(step)
 
             # print(step)
-            time.sleep(1.0 / 60)
+            if self.GUI:
+                time.sleep(1.0 / 60)
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()
