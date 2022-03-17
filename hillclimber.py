@@ -21,7 +21,11 @@ class HILLCLIMBER:
 
         self.child.Evaluate()
 
+        self.Print()
+
         self.Select()
+
+
 
     def Spawn(self):
         self.child = copy.deepcopy(self.parent)
@@ -32,4 +36,10 @@ class HILLCLIMBER:
 
 
     def Select(self):
-        pass
+        # if child has better fitness (more negative number) replace parent with child
+        if self.child.fitness < self.parent.fitness:
+            self.parent = self.child
+
+
+    def Print(self):
+        print("Parent fitness: " + str(self.parent.fitness) + " Child Fitness: " + str(self.child.fitness))

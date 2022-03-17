@@ -25,7 +25,6 @@ class SOLUTION:
         os.system("python simulate.py")
         fitnessFile = open("fitness.txt", "r")
         self.fitness = float(fitnessFile.read())
-        print(self.fitness)
         fitnessFile.close()
 
     def Mutate(self):
@@ -58,6 +57,7 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
         pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
 
+        print("Synaptic Weights")
         for currentRow in range(0, 3):
             for currentColumnPlus3 in range(3, 5):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumnPlus3,

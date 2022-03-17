@@ -43,7 +43,7 @@ class ROBOT:
 
     def Think(self):
         self.nn.Update()
-        self.nn.Print()
+        # self.nn.Print() print neural network
 
     # def Save_Motors(self): # removed method in motor.py
     #     for motor in self.motors:
