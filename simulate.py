@@ -6,5 +6,5 @@ else:
     directOrGUI = "GUI"
 simulation = SIMULATION(directOrGUI)
 simulation.Run()
-simulation.Get_Fitness()
+print(simulation.Get_Fitness())
 

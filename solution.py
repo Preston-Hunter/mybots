@@ -57,12 +57,12 @@ class SOLUTION:
         pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
         pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
 
-        print("Synaptic Weights")
+       # print("Synaptic Weights")
         for currentRow in range(0, 3):
             for currentColumnPlus3 in range(3, 5):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumnPlus3,
                                      weight=(self.weights[currentRow][currentColumnPlus3 - 3]))
-                # print(self.weights[currentRow][currentColumnPlus3 - 3]) print synaptic weights
+               # print(self.weights[currentRow][currentColumnPlus3 - 3]) print synaptic weights
 
         pyrosim.End()
 

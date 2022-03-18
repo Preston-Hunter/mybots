@@ -60,3 +60,4 @@ class ROBOT:
         f = open("fitness.txt", "w")
         f.write(str(xCoordinateOfLinkZero) + "\n")
         f.close()
+        return xCoordinateOfLinkZero

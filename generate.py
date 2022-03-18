@@ -11,7 +11,7 @@ height = 1
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
     pyrosim.End()
-    print("ss")
+    print("generated")
 
 
 
@@ -39,7 +39,7 @@ def Generate_Brain():
     for sensorNeuronNumber in range(0, 3):
         for motorNeuronNumber in range(3, 5):
             pyrosim.Send_Synapse(sourceNeuronName=sensorNeuronNumber, targetNeuronName=motorNeuronNumber,
-                                 weight=(random.random() - 0.5) * 2)
+                                 weight= (random.random() - 0.5) * 2)
 
     # pyrosim.Send_Synapse(sourceNeuronName=0, targetNeuronName=3, weight=1.0)
     # pyrosim.Send_Synapse(sourceNeuronName=1, targetNeuronName=3, weight=-1.0)
