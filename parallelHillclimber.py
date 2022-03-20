@@ -2,17 +2,20 @@ from solution import SOLUTION
 import constants as c
 import copy
 
-class HILLCLIMBER:
+class  PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
-        self.parent = SOLUTION()
+        self.parents = {}
+        for _ in range(c.populationSize):
+            self.parents[_] = SOLUTION()
 
     def Evolve(self):
-        self.parent.Evaluate("GUI")
-        for currentGeneration in range(c.numberOfGenerations):
-            self.Evolve_For_One_Generation()
+        for parent in self.parents:
+            self.parents[parent].Evaluate("GUI")
+        # for currentGeneration in range(c.numberOfGenerations):
+        #     self.Evolve_For_One_Generation()
 
-
+        pass
 
 
     def Evolve_For_One_Generation(self):
@@ -43,9 +46,10 @@ class HILLCLIMBER:
 
 
     def Show_Best(self):
-        print("Current Fitness: " + str(self.parent.fitness))
-
-        self.parent.Evaluate("GUI")
+        # print("Current Fitness: " + str(self.parent.fitness))
+        #
+        # self.parent.Evaluate("GUI")
+        pass
 
     def Print(self):
         print("\nParent fitness: " + str(self.parent.fitness) + " Child Fitness: " + str(self.child.fitness))
