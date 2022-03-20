@@ -9,7 +9,8 @@ height = 1
 
 class SOLUTION:
 
-    def __init__(self):
+    def __init__(self, ID):
+        self.myID = ID
         self.weights = numpy.array([[numpy.random.rand(), numpy.random.rand()], [numpy.random.rand(), numpy.random.rand()],
                         [numpy.random.rand(), numpy.random.rand()]])
 
@@ -22,7 +23,7 @@ class SOLUTION:
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("python simulate.py " + directOrGUI)
+        os.system("start /B python simulate.py " + directOrGUI)
         fitnessFile = open("fitness.txt", "r")
         self.fitness = float(fitnessFile.read())
         fitnessFile.close()
@@ -65,5 +66,8 @@ class SOLUTION:
                # print(self.weights[currentRow][currentColumnPlus3 - 3]) print synaptic weights
 
         pyrosim.End()
+
+    def Set_ID(self, ID):
+        self.myID = ID
 
 

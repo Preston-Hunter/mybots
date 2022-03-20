@@ -6,8 +6,10 @@ class  PARALLEL_HILL_CLIMBER:
 
     def __init__(self):
         self.parents = {}
+        self.nextAvailableID = 0
         for _ in range(c.populationSize):
-            self.parents[_] = SOLUTION()
+            self.parents[_] = SOLUTION(self.nextAvailableID)
+            self.nextAvailableID += 1
 
     def Evolve(self):
         for parent in self.parents:
@@ -23,7 +25,7 @@ class  PARALLEL_HILL_CLIMBER:
 
         self.Mutate()
 
-        self.child.Evaluate("DIRECT")
+        self.children.Evaluate("DIRECT")
 
         self.Print()
 
@@ -32,17 +34,20 @@ class  PARALLEL_HILL_CLIMBER:
 
 
     def Spawn(self):
-        self.child = copy.deepcopy(self.parent)
+        self.children = copy.deepcopy(self.parent)
+        for child in self.children:
+            self.children[child].Set_ID(self.nextAvailableID)
+            self.nextAvailableID += 1
 
 
     def Mutate(self):
-        self.child.Mutate()
+        self.children.Mutate()
 
 
     def Select(self):
         # if child has better fitness (more negative number) replace parent with child
-        if self.child.fitness < self.parent.fitness:
-            self.parent = self.child
+        if self.children.fitness < self.parent.fitness:
+            self.parent = self.children
 
 
     def Show_Best(self):
@@ -52,4 +57,4 @@ class  PARALLEL_HILL_CLIMBER:
         pass
 
     def Print(self):
-        print("\nParent fitness: " + str(self.parent.fitness) + " Child Fitness: " + str(self.child.fitness))
+        print("\nParent fitness: " + str(self.parent.fitness) + " Child Fitness: " + str(self.children.fitness))
