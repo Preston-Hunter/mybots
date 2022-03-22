@@ -14,6 +14,11 @@ class  PARALLEL_HILL_CLIMBER:
             self.parents[_] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
 
+
+    def Evaluate(self):
+        pass
+
+
     def Evolve(self):
         for parent in self.parents:
             self.parents[parent].Start_Simulation("DIRECT")
@@ -27,27 +32,34 @@ class  PARALLEL_HILL_CLIMBER:
 
 
     def Evolve_For_One_Generation(self):
-        # self.Spawn()
-        #
-        # self.Mutate()
+        self.Spawn()
+
+        self.Mutate()
         #
         # self.children.Evaluate("DIRECT")
         #
         # self.Print()
         #
         # self.Select()
-        pass
+
 
 
     def Spawn(self):
-        self.children = copy.deepcopy(self.parent)
-        for child in self.children:
-            self.children[child].Set_ID(self.nextAvailableID)
+        self.children = {}
+        for parent in self.parents:
+            child = copy.deepcopy(self.parents[parent])
+            child.Set_ID(self.nextAvailableID)
             self.nextAvailableID += 1
 
+            self.children[parent] = child
+        # for child in self.children:
+        #     print( "Child ", end = "")
+        #     print(child)
+        # exit()
 
     def Mutate(self):
-        self.children.Mutate()
+        for child in self.children:
+            self.children[child].Mutate()
 
 
     def Select(self):
