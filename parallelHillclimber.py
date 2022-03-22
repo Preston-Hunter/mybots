@@ -67,10 +67,18 @@ class  PARALLEL_HILL_CLIMBER:
 
 
     def Show_Best(self):
-        # print("Current Fitness: " + str(self.parent.fitness))
-        #
-        # self.parent.Evaluate("GUI")
-        pass
+        firstParent = True
+        for parent in self.parents:
+            if firstParent:
+                bestParent = self.parents[parent]
+                firstParent = False
+
+            if self.parents[parent].fitness < bestParent.fitness:
+                bestParent = self.parents[parent]
+
+        print("Current Fitness: " + str(bestParent.fitness))
+        bestParent.Evaluate("GUI")
+
 
     def Print(self):
         for parent in self.parents:

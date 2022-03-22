@@ -19,6 +19,7 @@ class SOLUTION:
 
 
 
+
     def Evaluate(self, directOrGUI):
 
         self.Start_Simulation(directOrGUI)
