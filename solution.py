@@ -20,10 +20,18 @@ class SOLUTION:
 
 
     def Evaluate(self, directOrGUI):
+
+        self.Start_Simulation(directOrGUI)
+        self.Wait_For_Simulation_To_End()
+
+
+    def Start_Simulation(self, directOrGUI):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
         os.system("start /B python simulate.py " + directOrGUI + " " + str(self.myID))
+
+    def Wait_For_Simulation_To_End(self):
         fitnessFileName = "fitness" + str(self.myID) + ".txt"
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)
@@ -32,6 +40,7 @@ class SOLUTION:
         print(self.fitness)
         fitnessFile.close()
         os.system("del " + fitnessFileName)
+
 
     def Mutate(self):
         row = random.randint(0,2)
