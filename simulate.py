@@ -11,4 +11,3 @@ else:
 simulation = SIMULATION(directOrGUI, solutionID)
 simulation.Run()
 print(simulation.Get_Fitness())
-

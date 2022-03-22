@@ -9,4 +9,4 @@ frequencyBack = 10
 phaseOffsetBack = -numpy.pi/4.0
 
 numberOfGenerations = 15
-populationSize = 2
+populationSize = 10
