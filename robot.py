@@ -8,6 +8,7 @@ import os
 class ROBOT:
 
     def __init__(self, runtime, solutionID):
+        self.solutionID = solutionID
         self.sensors = {}
         self.runtime = runtime
 
@@ -61,7 +62,12 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robotId, 0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0]
-        f = open("fitness.txt", "w")
+
+        tmpFileName = "tmp" + str(self.solutionID) + ".txt"
+        f = open(tmpFileName, "w")
         f.write(str(xCoordinateOfLinkZero) + "\n")
         f.close()
+
+        fitnessFileName = "fitness" + str(self.solutionID) + ".txt"
+        os.system("rename " + tmpFileName + " " + fitnessFileName)
         return xCoordinateOfLinkZero
