@@ -34,10 +34,10 @@ class  PARALLEL_HILL_CLIMBER:
         self.Mutate()
 
         self.Evaluate(self.children, "DIRECT")
-        exit()
-        # self.Print()
-        #
-        # self.Select()
+
+        self.Print()
+
+        self.Select()
 
 
 
@@ -61,8 +61,9 @@ class  PARALLEL_HILL_CLIMBER:
 
     def Select(self):
         # if child has better fitness (more negative number) replace parent with child
-        if self.children.fitness < self.parent.fitness:
-            self.parent = self.children
+        for child in self.children:
+            if self.children[child].fitness < self.parents[child].fitness:
+                    self.parents[child] = self.children[child]
 
 
     def Show_Best(self):
@@ -72,4 +73,6 @@ class  PARALLEL_HILL_CLIMBER:
         pass
 
     def Print(self):
-        print("\nParent fitness: " + str(self.parent.fitness) + " Child Fitness: " + str(self.children.fitness))
+        for parent in self.parents:
+            print("\nParent fitness: " + str(self.parents[parent].fitness))
+            print("Child Fitness: " + str(self.children[parent].fitness))
