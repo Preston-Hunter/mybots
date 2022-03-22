@@ -15,17 +15,14 @@ class  PARALLEL_HILL_CLIMBER:
             self.nextAvailableID += 1
 
 
-    def Evaluate(self):
-        pass
-
+    def Evaluate(self, solutions, directOrGUI):
+        for solution in solutions:
+            solutions[solution].Start_Simulation(directOrGUI)
+        for solution in solutions:
+            solutions[solution].Wait_For_Simulation_To_End()
 
     def Evolve(self):
-        for parent in self.parents:
-            self.parents[parent].Start_Simulation("DIRECT")
-        for parent in self.parents:
-            self.parents[parent].Wait_For_Simulation_To_End()
-
-
+        self.Evaluate(self.parents, "DIRECT")
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
 
@@ -35,9 +32,9 @@ class  PARALLEL_HILL_CLIMBER:
         self.Spawn()
 
         self.Mutate()
-        #
-        # self.children.Evaluate("DIRECT")
-        #
+
+        self.Evaluate(self.children, "DIRECT")
+        exit()
         # self.Print()
         #
         # self.Select()
