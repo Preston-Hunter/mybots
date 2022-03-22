@@ -51,7 +51,6 @@ class SOLUTION:
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
         pyrosim.End()
-        print("ss")
 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
