@@ -3,15 +3,16 @@ from motor import MOTOR
 import pybullet as p
 import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
-
+import os
 
 class ROBOT:
 
-    def __init__(self, runtime):
+    def __init__(self, runtime, solutionID):
         self.sensors = {}
         self.runtime = runtime
 
-        self.nn = NEURAL_NETWORK("brain.nndf")
+        brain_file_name = "brain" + solutionID + ".nndf"
+        self.nn = NEURAL_NETWORK(brain_file_name)
 
         self.motors = {}
         self.robotId = p.loadURDF("body.urdf")
@@ -19,6 +20,9 @@ class ROBOT:
 
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
+
+        command = "del " + brain_file_name
+        os.system(command)
 
     def Prepare_To_Sense(self):
         for linkName in pyrosim.linkNamesToIndices:

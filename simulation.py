@@ -7,7 +7,7 @@ import time
 
 class SIMULATION:
 
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
         self.runtime = 180
         #bool variable made by me, in order to have Drect run fast
         # and have GUI use time pause to have gui visible
@@ -23,7 +23,7 @@ class SIMULATION:
         p.setGravity(0, 0, -9.8)
 
         self.world = WORLD()
-        self.robot = ROBOT(self.runtime)
+        self.robot = ROBOT(self.runtime, solutionID)
 
 
 
