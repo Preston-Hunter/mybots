@@ -3,6 +3,7 @@ from pyrosim import pyrosim
 import os
 import random
 import time
+import constants as c
 length = 1
 width = 1
 height = 1
@@ -11,8 +12,18 @@ class SOLUTION:
 
     def __init__(self, ID):
         self.myID = ID
-        self.weights = numpy.array([[numpy.random.rand(), numpy.random.rand()], [numpy.random.rand(), numpy.random.rand()],
-                        [numpy.random.rand(), numpy.random.rand()]])
+        preweights =[]
+        rowInWeights = []
+        for sensor in range(0, c.numSensorNeurons):
+            for motor in range(0, c.numMotorNeurons):
+                rowInWeights.append(numpy.random.rand())
+            preweights.append(rowInWeights)
+            rowInWeights = []
+
+        self.weights = numpy.array(preweights)
+
+        # self.weights = numpy.array([[numpy.random.rand(), numpy.random.rand()], [numpy.random.rand(), numpy.random.rand()],
+        #                 [numpy.random.rand(), numpy.random.rand()]])
 
         self.weights *= 2
         self.weights -= 1
@@ -43,8 +54,8 @@ class SOLUTION:
 
 
     def Mutate(self):
-        row = random.randint(0,2)
-        col = random.randint(0,1)
+        row = random.randint(0, c.numSensorNeurons - 1)
+        col = random.randint(0, c.numMotorNeurons - 1)
         self.weights[row, col] = random.random() * 2 - 1
 
 
@@ -68,13 +79,19 @@ class SOLUTION:
         pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
         pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
         pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
+        # for sensor in range(0, c.numSensorNeurons):
+        #     pyrosim.Send_Sensor_Neuron(name=sensor, linkName=str(sensor))
+
+
+        # for motor in range(c.numSensorNeurons, c.numSensorNeurons + c.numMotorNeurons):
+        #     pyrosim.Send_Motor_Neuron(name=3, jointName=str(motor))
 
         pyrosim.Send_Motor_Neuron(name=3, jointName="Torso_BackLeg")
         pyrosim.Send_Motor_Neuron(name=4, jointName="Torso_FrontLeg")
 
        # print("Synaptic Weights")
-        for currentRow in range(0, 3):
-            for currentColumnPlus3 in range(3, 5):
+        for currentRow in range(c.numSensorNeurons):
+            for currentColumnPlus3 in range(c.numSensorNeurons, c.numSensorNeurons + c.numMotorNeurons):
                 pyrosim.Send_Synapse(sourceNeuronName=currentRow, targetNeuronName=currentColumnPlus3,
                                      weight=(self.weights[currentRow][currentColumnPlus3 - 3]))
                # print(self.weights[currentRow][currentColumnPlus3 - 3]) print synaptic weights
