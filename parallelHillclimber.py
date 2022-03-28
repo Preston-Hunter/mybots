@@ -35,7 +35,7 @@ class  PARALLEL_HILL_CLIMBER:
 
         self.Evaluate(self.children, "DIRECT")
 
-        self.Print()
+        #self.Print()
 
         self.Select()
 

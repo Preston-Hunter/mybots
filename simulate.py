@@ -10,4 +10,5 @@ else:
     solutionID = "0"
 simulation = SIMULATION(directOrGUI, solutionID)
 simulation.Run()
-print(simulation.Get_Fitness())
+# can be printed to print fitness
+simulation.Get_Fitness()
