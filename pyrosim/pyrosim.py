@@ -42,6 +42,10 @@ def End_Model():
 
     model.Save_End_Tag(f)
 
+def Send_Hidden_Neuron(name):
+
+    f.write('    <neuron name = "' + str(name) + '" type = "hidden" />\n')
+
 def Get_Touch_Sensor_Value_For_Link(linkName):
 
     touchValue = -1.0
