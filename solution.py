@@ -117,16 +117,28 @@ class SOLUTION:
         brain_file_name = "brain" + str(self.myID) + ".nndf"
         pyrosim.Start_NeuralNetwork(brain_file_name)
 
+        sensor_neuron_names = ["Torso", "Backleg", "FrontLeg", "LeftLeg", "RightLeg", "BackLowerLeg", "FrontLowerLeg",
+                        "LeftLowerLeg", "RightLowerLeg"]
         #Sensor Neurons
-        pyrosim.Send_Sensor_Neuron(name=0, linkName="Torso")
-        pyrosim.Send_Sensor_Neuron(name=1, linkName="BackLeg")
-        pyrosim.Send_Sensor_Neuron(name=2, linkName="FrontLeg")
-        pyrosim.Send_Sensor_Neuron(name=3, linkName="LeftLeg")
-        pyrosim.Send_Sensor_Neuron(name=4, linkName="RightLeg")
-        pyrosim.Send_Sensor_Neuron(name=5, linkName="BackLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name=6, linkName="FrontLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name=7, linkName="LeftLowerLeg")
-        pyrosim.Send_Sensor_Neuron(name=8, linkName="RightLowerLeg")
+        i = 0
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="Torso")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="BackLeg")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="FrontLeg")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="LeftLeg")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="RightLeg")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="BackLowerLeg")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="FrontLowerLeg")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="LeftLowerLeg")
+        i+=1
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="RightLowerLeg")
+        i+=1
         # for sensor in range(0, c.numSensorNeurons):
         #     pyrosim.Send_Sensor_Neuron(name=sensor, linkName=str(sensor))
 
@@ -135,18 +147,27 @@ class SOLUTION:
 
 
         # Hidden neurons
-        pyrosim.Send_Hidden_Neuron(name=9)
-
+        for j in range(c.numHiddenNeurons):
+            pyrosim.Send_Hidden_Neuron(name=i)
+            i+=1
         # Motor Neurons
-        pyrosim.Send_Motor_Neuron(name=10, jointName="Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron(name=11, jointName="Torso_FrontLeg")
-        pyrosim.Send_Motor_Neuron(name=12, jointName="Torso_LeftLeg")
-        pyrosim.Send_Motor_Neuron(name=13, jointName="Torso_RightLeg")
+        pyrosim.Send_Motor_Neuron(name=i, jointName="Torso_BackLeg")
+        i+=1
+        pyrosim.Send_Motor_Neuron(name=i, jointName="Torso_FrontLeg")
+        i+=1
+        pyrosim.Send_Motor_Neuron(name=i, jointName="Torso_LeftLeg")
+        i+=1
+        pyrosim.Send_Motor_Neuron(name=i, jointName="Torso_RightLeg")
+        i+=1
 
-        pyrosim.Send_Motor_Neuron(name=14, jointName="BackLeg_BackLowerLeg")
-        pyrosim.Send_Motor_Neuron(name=15, jointName="FrontLeg_FrontLowerLeg")
-        pyrosim.Send_Motor_Neuron(name=16, jointName="LeftLeg_LeftLowerLeg")
-        pyrosim.Send_Motor_Neuron(name=17, jointName="RightLeg_RightLowerLeg")
+        pyrosim.Send_Motor_Neuron(name=i, jointName="BackLeg_BackLowerLeg")
+        i+=1
+        pyrosim.Send_Motor_Neuron(name=i, jointName="FrontLeg_FrontLowerLeg")
+        i+=1
+        pyrosim.Send_Motor_Neuron(name=i, jointName="LeftLeg_LeftLowerLeg")
+        i+=1
+        pyrosim.Send_Motor_Neuron(name=i, jointName="RightLeg_RightLowerLeg")
+        i+=1
 
         # print("Synaptic Weights")
         #Sensor neuron weights
