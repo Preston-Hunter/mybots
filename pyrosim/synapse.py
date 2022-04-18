@@ -26,6 +26,10 @@ class SYNAPSE:
 
         return self.weight
 
+    def print(self):
+        str =  "Neuron " + self.sourceNeuronName + "-> Neuron " + self.targetNeuronName + "(Weight:" + str(self.weight) + ")"
+        return str
+
 # -------------------------- Private methods -------------------------
 
     def Determine_Source_Neuron_Name(self,line):
