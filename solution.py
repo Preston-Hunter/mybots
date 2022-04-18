@@ -251,6 +251,7 @@ class SOLUTION:
             pyrosim.Send_Synapse(sourceNeuronName=motor_name, targetNeuronName=motor_name,
                                  weight=(self.motor_recurrent_weights[motor]))
 
+
         pyrosim.End()
 
     def Set_ID(self, ID):

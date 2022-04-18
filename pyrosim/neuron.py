@@ -27,6 +27,12 @@ class NEURON:
     def Get_Joint_Name(self):
 
         return self.jointName
+    def get_type(self):
+        if self.type == c.SENSOR_NEURON:
+            return "sensor"
+        if self.type == c.HIDDEN_NEURON:
+            return "hidden"
+        return "motor"
 
     def Get_Link_Name(self):
 
@@ -76,6 +82,8 @@ class NEURON:
         # self.Print_Type()
 
         self.Print_Value()
+
+
 
 
     def Set_Value(self,value):

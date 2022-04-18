@@ -26,9 +26,10 @@ class SYNAPSE:
 
         return self.weight
 
-    def print(self):
-        str =  "Neuron " + self.sourceNeuronName + "-> Neuron " + self.targetNeuronName + "(Weight:" + str(self.weight) + ")"
-        return str
+    def print(self, neurons):
+
+        string =  neurons[self.sourceNeuronName].get_type() + " neuron " + self.sourceNeuronName + " -> " + neurons[self.targetNeuronName].get_type() + " neuron " +  self.targetNeuronName + "(Weight:" + str(self.weight) + ")"
+        print(string)
 
 # -------------------------- Private methods -------------------------
 

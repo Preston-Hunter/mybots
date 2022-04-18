@@ -47,6 +47,10 @@ class NEURAL_NETWORK:
     def Get_Value_Of(self, neuronName):
         return self.neurons[neuronName].Get_Value()
 
+    def print_synapses(self, neurons):
+        for synapse in self.synapses:
+            self.synapses[synapse].print(self.neurons)
+
     # ---------------- Private methods --------------------------------------
 
     def Add_Neuron_According_To(self, line):

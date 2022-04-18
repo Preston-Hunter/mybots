@@ -24,6 +24,7 @@ class SIMULATION:
 
         self.world = WORLD()
         self.robot = ROBOT(self.runtime, solutionID)
+        self.robot.nn.print_synapses(self.robot.nn.neurons)
 
 
 
