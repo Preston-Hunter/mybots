@@ -19,9 +19,9 @@ class SOLUTION:
         pre_sensor_weights = []
         rowInSensorWeights = []
 
-        self.sensor_recurrent_weights = []
-        self.motor_recurrent_weights = []
-        self.hidden_recurrent_weights = []
+        self.sensor_self_weights = []
+        self.motor_self_weights = []
+        self.hidden_self_weights = []
 
         for sensor in range(0, c.numSensorNeurons):
             for hidden in range(0, c.numHiddenNeurons):
@@ -41,18 +41,45 @@ class SOLUTION:
 
         self.motor_weights = numpy.array(pre_motor_weights)
 
-        # Make self connecting weights
+        # ---------------------Make recurrent connections-----------------
+
+        # connect motors to each other and to hidden and to sensors
+        rowInRecMotorWeights = []
+        pre_rec_motor_weights = []
+        for motor in range(0, c.numMotorNeurons):
+            for hid_sen_mot in range(0, c.numHiddenNeurons + c.numSensorNeurons + c.numMotorNeurons - 1):
+                rowInRecMotorWeights.append(numpy.random.rand())
+            pre_rec_motor_weights.append(rowInRecMotorWeights)
+            rowInRecMotorWeights = []
+        self.rec_motor_weights = numpy.array(pre_rec_motor_weights)
+
+        # connect hidden to each other and to sensors
+        rowInRecHiddenWeights = []
+        pre_rec_hidden_weights = []
+        for hidden in range(0, c.numHiddenNeurons):
+            for hid_sen in range(0, c.numHiddenNeurons + c.numSensorNeurons - 1):
+                rowInRecHiddenWeights.append(numpy.random.rand())
+            pre_rec_hidden_weights.append(rowInRecHiddenWeights)
+            rowInRecHiddenWeights = []
+        self.rec_hidden_weights = numpy.array(pre_rec_hidden_weights)
+        # print("hidden")
+        # print(self.rec_hidden_weights)
+        # print("motor")
+        # print(self.rec_motor_weights)
+
+
+        # ----------Make self connecting weights----------------
         for sensor in range(0, c.numSensorNeurons):
-            self.sensor_recurrent_weights.append(numpy.random.rand())
-        self.sensor_recurrent_weights = numpy.array(self.sensor_recurrent_weights)
+            self.sensor_self_weights.append(numpy.random.rand())
+        self.sensor_self_weights = numpy.array(self.sensor_self_weights)
 
         for hidden in range(0, c.numHiddenNeurons):
-            self.hidden_recurrent_weights.append(numpy.random.rand())
-        self.hidden_recurrent_weights = numpy.array(self.hidden_recurrent_weights)
+            self.hidden_self_weights.append(numpy.random.rand())
+        self.hidden_self_weights = numpy.array(self.hidden_self_weights)
 
         for motor in range(0, c.numMotorNeurons):
-            self.motor_recurrent_weights.append(numpy.random.rand())
-        self.motor_recurrent_weights = numpy.array(self.motor_recurrent_weights)
+            self.motor_self_weights.append(numpy.random.rand())
+        self.motor_self_weights = numpy.array(self.motor_self_weights)
 
         # self.weights = numpy.array([[numpy.random.rand(), numpy.random.rand()], [numpy.random.rand(), numpy.random.rand()],
         #                 [numpy.random.rand(), numpy.random.rand()]])
@@ -63,14 +90,20 @@ class SOLUTION:
         self.motor_weights *= 2
         self.motor_weights -= 1
 
-        self.sensor_recurrent_weights *= 2
-        self.sensor_recurrent_weights -= 1
+        self.sensor_self_weights *= 2
+        self.sensor_self_weights -= 1
 
-        self.hidden_recurrent_weights *= 2
-        self.hidden_recurrent_weights -= 1
+        self.hidden_self_weights *= 2
+        self.hidden_self_weights -= 1
 
-        self.motor_recurrent_weights *= 2
-        self.motor_recurrent_weights -= 1
+        self.motor_self_weights *= 2
+        self.motor_self_weights -= 1
+
+        self.rec_hidden_weights *= 2
+        self.rec_hidden_weights -= 1
+
+        self.rec_motor_weights *= 2
+        self.rec_motor_weights -= 1
 
     def Evaluate(self, directOrGUI):
 
@@ -93,33 +126,54 @@ class SOLUTION:
         os.system("del " + fitnessFileName)
 
     def Mutate(self):
-        which_matrix = random.randint(0, 2)
-        if which_matrix % 3 == 0:
+        which_matrix = random.randint(0, 3)
+        which_matrix = 3
+        if which_matrix % 4 == 0:
             row = random.randint(0, c.numSensorNeurons - 1)
             col = random.randint(0, c.numHiddenNeurons - 1)
             self.sensor_weights[row, col] = random.random() * 2 - 1
-        elif which_matrix % 3 == 1:
+        elif which_matrix % 4 == 1:
             row = random.randint(0, c.numHiddenNeurons - 1)
             col = random.randint(0, c.numMotorNeurons - 1)
             self.motor_weights[row, col] = random.random() * 2 - 1
-        else: # mutate self connections
+        elif which_matrix % 4 == 2: # mutate self connections
             which_neuron_set = random.randint(0,2)
             if which_neuron_set % 3 == 0:
-                if len(self.sensor_recurrent_weights) != 0:
-                    index = random.randint(0, len(self.sensor_recurrent_weights) - 1)
-                    self.sensor_recurrent_weights[index] = random.random() * 2 - 1
+                if len(self.sensor_self_weights) != 0:
+                    index = random.randint(0, len(self.sensor_self_weights) - 1)
+                    self.sensor_self_weights[index] = random.random() * 2 - 1
                 else:
                     which_neuron_set += 1
             if which_neuron_set % 3 == 1:
-                if len(self.hidden_recurrent_weights) != 0:
-                    index = random.randint(0, len(self.hidden_recurrent_weights) - 1)
-                    self.hidden_recurrent_weights[index] = random.random() * 2 - 1
+                if len(self.hidden_self_weights) != 0:
+                    index = random.randint(0, len(self.hidden_self_weights) - 1)
+                    self.hidden_self_weights[index] = random.random() * 2 - 1
                 else:
                     which_neuron_set += 1
             if which_neuron_set % 3 == 2:
-                if len(self.motor_recurrent_weights) != 0:
-                    index = random.randint(0, len(self.motor_recurrent_weights) - 1)
-                    self.motor_recurrent_weights[index] = random.random() * 2 - 1
+                if len(self.motor_self_weights) != 0:
+                    index = random.randint(0, len(self.motor_self_weights) - 1)
+                    self.motor_self_weights[index] = random.random() * 2 - 1
+        else:
+            which_rec_set = random.randint(0,1)
+            which_rec_set = 0
+            print(self.rec_motor_weights)
+            print("\n")
+            #modify rec_motor_weights
+            if which_rec_set % 2 == 0:
+                row = random.randint(0, c.numMotorNeurons - 1)
+                col = random.randint(0, c.numMotorNeurons + c.numSensorNeurons + c.numHiddenNeurons - 2)
+                self.rec_motor_weights[row, col] = random.random() * 2 - 1
+                print(row)
+                print(col)
+                print(self.rec_motor_weights)
+                exit()
+            else:
+                row = random.randint(0, c.numMotorNeurons - 1)
+                col = random.randint(0, c.numSensorNeurons + c.numHiddenNeurons - 2)
+                self.rec_hidden_weights[row, col] = random.random() * 2 - 1
+
+
 
 
     def Create_World(self):
@@ -239,18 +293,39 @@ class SOLUTION:
         # self connections
         for sensor in range(0, c.numSensorNeurons):
             pyrosim.Send_Synapse(sourceNeuronName=sensor, targetNeuronName=sensor,
-                                 weight=(self.sensor_recurrent_weights[sensor]))
+                                 weight=(self.sensor_self_weights[sensor]))
 
         for hidden in range(0, c.numHiddenNeurons):
             hidden_name = hidden + c.numSensorNeurons
             pyrosim.Send_Synapse(sourceNeuronName=hidden_name, targetNeuronName=hidden_name,
-                                 weight=(self.hidden_recurrent_weights[hidden]))
+                                 weight=(self.hidden_self_weights[hidden]))
 
         for motor in range(0, c.numMotorNeurons):
             motor_name = motor + c.numSensorNeurons + c.numHiddenNeurons
             pyrosim.Send_Synapse(sourceNeuronName=motor_name, targetNeuronName=motor_name,
-                                 weight=(self.motor_recurrent_weights[motor]))
+                                 weight=(self.motor_self_weights[motor]))
 
+        # Recurrent connections
+
+        for motor in range(0, c.numMotorNeurons):
+            for hid_sen_mot in range(0, c.numHiddenNeurons + c.numSensorNeurons + c.numMotorNeurons - 1):
+                motor_name = motor + c.numSensorNeurons + c.numHiddenNeurons
+                if hid_sen_mot < motor_name:
+                    target = hid_sen_mot
+                else:
+                    target = hid_sen_mot + 1
+                pyrosim.Send_Synapse(sourceNeuronName=motor_name, targetNeuronName=target,
+                                     weight=(self.rec_motor_weights[motor][hid_sen_mot]))
+
+        for hidden in range(0, c.numHiddenNeurons):
+            for hid_sen in range(0, c.numHiddenNeurons + c.numSensorNeurons - 1):
+                hidden_name = hidden + c.numSensorNeurons
+                if hid_sen < hidden_name:
+                    target = hid_sen
+                else:
+                    target = hid_sen + 1
+                pyrosim.Send_Synapse(sourceNeuronName=hidden_name, targetNeuronName=target,
+                                     weight=(self.rec_hidden_weights[hidden][hid_sen]))
 
         pyrosim.End()
 
