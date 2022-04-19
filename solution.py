@@ -101,9 +101,11 @@ class SOLUTION:
 
         self.rec_hidden_weights *= 2
         self.rec_hidden_weights -= 1
+        self.rec_hidden_weights *= c.scale
 
         self.rec_motor_weights *= 2
         self.rec_motor_weights -= 1
+        self.rec_motor_weights *= c.scale
 
     def Evaluate(self, directOrGUI):
 
@@ -127,7 +129,6 @@ class SOLUTION:
 
     def Mutate(self):
         which_matrix = random.randint(0, 3)
-        which_matrix = 3
         if which_matrix % 4 == 0:
             row = random.randint(0, c.numSensorNeurons - 1)
             col = random.randint(0, c.numHiddenNeurons - 1)
@@ -156,18 +157,11 @@ class SOLUTION:
                     self.motor_self_weights[index] = random.random() * 2 - 1
         else:
             which_rec_set = random.randint(0,1)
-            which_rec_set = 0
-            print(self.rec_motor_weights)
-            print("\n")
             #modify rec_motor_weights
             if which_rec_set % 2 == 0:
                 row = random.randint(0, c.numMotorNeurons - 1)
                 col = random.randint(0, c.numMotorNeurons + c.numSensorNeurons + c.numHiddenNeurons - 2)
                 self.rec_motor_weights[row, col] = random.random() * 2 - 1
-                print(row)
-                print(col)
-                print(self.rec_motor_weights)
-                exit()
             else:
                 row = random.randint(0, c.numMotorNeurons - 1)
                 col = random.randint(0, c.numSensorNeurons + c.numHiddenNeurons - 2)

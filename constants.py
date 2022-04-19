@@ -16,3 +16,5 @@ numMotorNeurons = 8
 numHiddenNeurons = 9
 
 motorJointRange = 0.2
+
+scale = 1
