@@ -66,7 +66,17 @@ class SOLUTION:
         # print(self.rec_hidden_weights)
         # print("motor")
         # print(self.rec_motor_weights)
+        # connect hidden to each other and to sensors
 
+        #connect sensors to each other
+        rowInRecSensorWeights = []
+        pre_rec_sensor_weights = []
+        for sensor in range(0, c.numSensorNeurons):
+            for sen in range(0, c.numSensorNeurons - 1):
+                rowInRecSensorWeights.append(numpy.random.rand())
+            pre_rec_sensor_weights.append(rowInRecSensorWeights)
+            rowInRecSensorWeights = []
+        self.rec_sensor_weights = numpy.array(pre_rec_sensor_weights)
 
         # ----------Make self connecting weights----------------
         for sensor in range(0, c.numSensorNeurons):
@@ -106,6 +116,10 @@ class SOLUTION:
         self.rec_motor_weights *= 2
         self.rec_motor_weights -= 1
         self.rec_motor_weights *= c.scale
+
+        self.rec_sensor_weights *= 2
+        self.rec_sensor_weights -= 1
+        self.rec_sensor_weights *= c.scale
 
     def Evaluate(self, directOrGUI):
 
@@ -156,17 +170,20 @@ class SOLUTION:
                     index = random.randint(0, len(self.motor_self_weights) - 1)
                     self.motor_self_weights[index] = random.random() * 2 - 1
         else:
-            which_rec_set = random.randint(0,1)
+            which_rec_set = random.randint(0,2)
             #modify rec_motor_weights
-            if which_rec_set % 2 == 0:
+            if which_rec_set % 3 == 0:
                 row = random.randint(0, c.numMotorNeurons - 1)
                 col = random.randint(0, c.numMotorNeurons + c.numSensorNeurons + c.numHiddenNeurons - 2)
                 self.rec_motor_weights[row, col] = random.random() * 2 - 1
-            else:
+            elif which_rec_set % 3 == 1:
                 row = random.randint(0, c.numMotorNeurons - 1)
                 col = random.randint(0, c.numSensorNeurons + c.numHiddenNeurons - 2)
                 self.rec_hidden_weights[row, col] = random.random() * 2 - 1
-
+            else:
+                row = random.randint(0, c.numSensorNeurons - 1)
+                col = random.randint(0, c.numSensorNeurons - 2)
+                self.rec_hidden_weights[row, col] = random.random() * 2 - 1
 
 
 
@@ -320,6 +337,15 @@ class SOLUTION:
                     target = hid_sen + 1
                 pyrosim.Send_Synapse(sourceNeuronName=hidden_name, targetNeuronName=target,
                                      weight=(self.rec_hidden_weights[hidden][hid_sen]))
+
+        for sensor in range(0, c.numSensorNeurons):
+            for sen in range(0, c.numSensorNeurons - 1):
+                if sen < sensor:
+                    target = sen
+                else:
+                    target = sen + 1
+                pyrosim.Send_Synapse(sourceNeuronName=sensor, targetNeuronName=target,
+                                     weight=(self.rec_hidden_weights[sensor][sen]))
 
         pyrosim.End()
 
