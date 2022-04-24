@@ -1,5 +1,5 @@
 import math
-
+import constants
 import pybullet
 
 import pyrosim.pyrosim as pyrosim
@@ -58,8 +58,12 @@ class NEURON:
 
         return self.type == c.MOTOR_NEURON
 
-    def Update_Sensor_Neuron(self):
-        self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
+    def Update_Sensor_Neuron(self, step):
+        if self.Get_Link_Name() != "CPG":
+            self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
+        else:
+            print("proof")
+            self.Set_Value(math.sin(constants.x * step))
 
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
         self.Set_Value(0)

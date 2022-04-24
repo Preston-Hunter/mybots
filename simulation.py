@@ -2,13 +2,14 @@ from world import WORLD
 from robot import ROBOT
 import pybullet as p
 import pybullet_data
+import constants as c
 import pyrosim.pyrosim as pyrosim
 import time
 
 class SIMULATION:
 
     def __init__(self, directOrGUI, solutionID):
-        self.runtime = 500
+        self.runtime = c.runtime
         #bool variable made by me, in order to have Drect run fast
         # and have GUI use time pause to have gui visible
         self.GUI = True
@@ -39,7 +40,7 @@ class SIMULATION:
             p.stepSimulation()
 
             self.robot.Sense(step)
-            self.robot.Think()
+            self.robot.Think(step)
             self.robot.Act(step)
 
             # print(step)

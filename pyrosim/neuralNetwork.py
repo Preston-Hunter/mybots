@@ -26,10 +26,10 @@ class NEURAL_NETWORK:
         self.Print_Motor_Neuron_Values()
 
         print("")
-    def Update(self):
+    def Update(self, step):
         for neuronName in self.neurons:
             if self.neurons[neuronName].Is_Sensor_Neuron():
-                self.neurons[neuronName].Update_Sensor_Neuron()
+                self.neurons[neuronName].Update_Sensor_Neuron(step)
             else:
                 self.neurons[neuronName].Update_Hidden_Or_Motor_Neuron(self.neurons, self.synapses)
         # for synapseName in self.synapses:

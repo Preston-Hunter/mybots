@@ -8,3 +8,4 @@ phc = PARALLEL_HILL_CLIMBER()
 
 phc.Evolve()
 phc.Show_Best()
+phc.print_fitness_of_each_generation()

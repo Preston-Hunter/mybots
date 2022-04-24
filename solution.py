@@ -15,6 +15,7 @@ numHiddenNeurons = 1
 class SOLUTION:
 
     def __init__(self, ID):
+        self.generation = -1
         self.myID = ID
         pre_sensor_weights = []
         rowInSensorWeights = []
@@ -183,7 +184,7 @@ class SOLUTION:
             else:
                 row = random.randint(0, c.numSensorNeurons - 1)
                 col = random.randint(0, c.numSensorNeurons - 2)
-                self.rec_hidden_weights[row, col] = random.random() * 2 - 1
+                self.rec_sensor_weights[row, col] = random.random() * 2 - 1
 
 
 
@@ -252,6 +253,10 @@ class SOLUTION:
         i += 1
         pyrosim.Send_Sensor_Neuron(name=i, linkName="RightLowerLeg")
         i += 1
+
+        # -----------------CPG Sensor neuron---------------
+        pyrosim.Send_Sensor_Neuron(name=i, linkName="CPG")
+        i+=1
         # for sensor in range(0, c.numSensorNeurons):
         #     pyrosim.Send_Sensor_Neuron(name=sensor, linkName=str(sensor))
 
@@ -280,6 +285,8 @@ class SOLUTION:
         i += 1
         pyrosim.Send_Motor_Neuron(name=i, jointName="RightLeg_RightLowerLeg")
         i += 1
+
+
 
         # print("Synaptic Weights")
         # Sensor neuron weights
@@ -345,7 +352,7 @@ class SOLUTION:
                 else:
                     target = sen + 1
                 pyrosim.Send_Synapse(sourceNeuronName=sensor, targetNeuronName=target,
-                                     weight=(self.rec_hidden_weights[sensor][sen]))
+                                     weight=(self.rec_sensor_weights[sensor][sen]))
 
         pyrosim.End()
 

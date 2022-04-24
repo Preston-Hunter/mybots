@@ -47,8 +47,8 @@ class ROBOT:
                 self.motors[jointName].Set_Value(desiredAngle)
                 # print(neuronName, "=", jointName, "storing ", desiredAngle)
 
-    def Think(self):
-        self.nn.Update()
+    def Think(self, step):
+        self.nn.Update(step)
         # self.nn.Print() print neural network
 
     # def Save_Motors(self): # removed method in motor.py
