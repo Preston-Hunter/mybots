@@ -62,7 +62,6 @@ class NEURON:
         if self.Get_Link_Name() != "CPG":
             self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
         else:
-            print("proof")
             self.Set_Value(math.sin(constants.x * step))
 
     def Update_Hidden_Or_Motor_Neuron(self, neurons, synapses):
