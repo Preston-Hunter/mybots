@@ -1,26 +1,26 @@
-import numpy
+import master_constants as m
 
-numSensorNeuronsWithCPG = 10
+numSensorNeuronsWithCPG = m.numSensorNeuronsWithCPG
 
-runtime = 1000
+runtime = m.runtime
 
-amplitude = numpy.pi / 4.0
-frequency = 8
-phaseOffset = 0
+amplitude = m.amplitude
+frequency = m.frequency
+phaseOffset = m.phaseOffset
 
-amplitudeBack = numpy.pi / 4.0
-frequencyBack = 10
-phaseOffsetBack = -numpy.pi / 4.0
+amplitudeBack = m.amplitudeBack
+frequencyBack = m.frequencyBack
+phaseOffsetBack = m.phaseOffsetBack
 
-numberOfGenerations = 10
-populationSize = 10
+numberOfGenerations = m.numberOfGenerations
+populationSize = m.populationSize
 
-numSensorNeurons = numSensorNeuronsWithCPG
-numMotorNeurons = 8
-numHiddenNeurons = 9
+numSensorNeurons = m.numSensorNeuronsWithCPG
+numMotorNeurons = m.numMotorNeurons
+numHiddenNeurons = m.numHiddenNeurons
 
-motorJointRange = 0.2
+motorJointRange = m.motorJointRange
 
-x = .8
+x = m.x
 
-scale = 1
+scale = m.scale

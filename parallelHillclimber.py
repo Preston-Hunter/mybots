@@ -99,19 +99,18 @@ class PARALLEL_HILL_CLIMBER:
         self.best_parents.append(bestParent)
         self.generation_fitness.append(bestParent.fitness)
 
-    def save_fitness_of_each_generation(self):
+    def save_fitness_of_each_generation(self, output_filename):
 
-        output_filename = "generations.csv"
         allFitnessesFile = open(output_filename, "w")
 
         for i in range(len(self.generation_fitness)):
-            if i != len(self.generation_fitness):
+            if i != len(self.generation_fitness) - 1:
                 allFitnessesFile.write(str(i) + ",")
             else:
                 allFitnessesFile.write(str(i) + "\n")
 
         for i in range(len(self.generation_fitness)):
-            if i != len(self.generation_fitness):
+            if i != len(self.generation_fitness) - 1:
                 allFitnessesFile.write(str(self.generation_fitness[i]) + ",")
             else:
                 allFitnessesFile.write(str(self.generation_fitness[i]))
