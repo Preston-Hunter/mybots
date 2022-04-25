@@ -14,7 +14,8 @@ numHiddenNeurons = 1
 
 class SOLUTION:
 
-    def __init__(self, ID):
+    def __init__(self, ID, useCPG):
+        self.useCPG = useCPG
         self.generation = -1
         self.myID = ID
         pre_sensor_weights = []
@@ -256,8 +257,9 @@ class SOLUTION:
         i += 1
 
         # -----------------CPG Sensor neuron---------------
-        pyrosim.Send_Sensor_Neuron(name=i, linkName="CPG")
-        i+=1
+        if self.useCPG:
+            pyrosim.Send_Sensor_Neuron(name=i, linkName="CPG")
+            i+=1
         # for sensor in range(0, c.numSensorNeurons):
         #     pyrosim.Send_Sensor_Neuron(name=sensor, linkName=str(sensor))
 

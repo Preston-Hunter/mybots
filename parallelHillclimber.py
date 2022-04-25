@@ -2,9 +2,12 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
-class  PARALLEL_HILL_CLIMBER:
 
-    def __init__(self):
+
+class PARALLEL_HILL_CLIMBER:
+
+    def __init__(self, useCPG):
+        self.useCPG = useCPG
         self.current_generation = 0
         self.best_parents = []
         self.generation_fitness = []
@@ -15,9 +18,8 @@ class  PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
         for _ in range(c.populationSize):
-            self.parents[_] = SOLUTION(self.nextAvailableID)
+            self.parents[_] = SOLUTION(self.nextAvailableID, self.useCPG)
             self.nextAvailableID += 1
-
 
     def Evaluate(self, solutions, directOrGUI):
         for solution in solutions:
@@ -34,8 +36,6 @@ class  PARALLEL_HILL_CLIMBER:
             n = self.current_generation
             self.Evolve_For_One_Generation(n)
 
-
-
     def Evolve_For_One_Generation(self, generation):
         self.Spawn()
 
@@ -43,13 +43,11 @@ class  PARALLEL_HILL_CLIMBER:
 
         self.Evaluate(self.children, "DIRECT")
 
-        #self.Print()
+        # self.Print()
 
         self.Select()
 
         self.save_best_from_current_generation(generation)
-
-
 
     def Spawn(self):
         self.children = {}
@@ -68,13 +66,11 @@ class  PARALLEL_HILL_CLIMBER:
         for child in self.children:
             self.children[child].Mutate()
 
-
     def Select(self):
         # if child has better fitness (more negative number) replace parent with child
         for child in self.children:
             if self.children[child].fitness < self.parents[child].fitness:
-                    self.parents[child] = self.children[child]
-
+                self.parents[child] = self.children[child]
 
     def Show_Best(self):
         firstParent = True
@@ -88,7 +84,6 @@ class  PARALLEL_HILL_CLIMBER:
 
         print("Current Fitness: " + str(bestParent.fitness))
         bestParent.Evaluate("GUI")
-
 
     def save_best_from_current_generation(self, generation):
         firstParent = True
@@ -104,6 +99,24 @@ class  PARALLEL_HILL_CLIMBER:
         self.best_parents.append(bestParent)
         self.generation_fitness.append(bestParent.fitness)
 
+    def save_fitness_of_each_generation(self):
+
+        output_filename = "generations.csv"
+        allFitnessesFile = open(output_filename, "w")
+
+        for i in range(len(self.generation_fitness)):
+            if i != len(self.generation_fitness):
+                allFitnessesFile.write(str(i) + ",")
+            else:
+                allFitnessesFile.write(str(i) + "\n")
+
+        for i in range(len(self.generation_fitness)):
+            if i != len(self.generation_fitness):
+                allFitnessesFile.write(str(self.generation_fitness[i]) + ",")
+            else:
+                allFitnessesFile.write(str(self.generation_fitness[i]))
+
+        allFitnessesFile.close()
 
     def print_fitness_of_each_generation(self):
         print(self.generation_fitness)
