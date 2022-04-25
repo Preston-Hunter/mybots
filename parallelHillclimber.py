@@ -1,4 +1,5 @@
 from solution import SOLUTION
+import numpy
 import constants as c
 import copy
 import os
@@ -7,10 +8,19 @@ import os
 class PARALLEL_HILL_CLIMBER:
 
     def __init__(self, useCPG):
+        dim1 = c.numberOfGenerations
+        dim2 = c.populationSize
+        output = [[0.0 for i in range(dim1)] for j in range(dim2)]
+        self.generation_fitness = numpy.array(output)
+
+
+
+
+
         self.useCPG = useCPG
         self.current_generation = 0
         self.best_parents = []
-        self.generation_fitness = []
+        self.best_of_each_generation_fitness = []
         os.system("del brain*.nndf")
         os.system("del fitness*.txt")
         os.system("del tmp*.txt")
@@ -30,11 +40,41 @@ class PARALLEL_HILL_CLIMBER:
     def Evolve(self):
         n = self.current_generation
         self.Evaluate(self.parents, "DIRECT")
+
+        # self.initialize_all_generations_fitness_data(all_simulations_data_filename)
         self.save_best_from_current_generation(n)
         for currentGeneration in range(c.numberOfGenerations):
             self.current_generation += 1
             n = self.current_generation
             self.Evolve_For_One_Generation(n)
+
+    def save_all_generations_fitness_data(self, generation):
+        # file = open(filename, "a")
+        # file.write("generation " + str(generation) + ",")
+        current_member = 0
+        for child in self.children:
+            self.generation_fitness[current_member, generation - 1] = self.children[child].fitness
+            current_member += 1
+
+        #     fitness = self.children[child].fitness
+        #     file.write(str(fitness) + ",")
+        # file.write("\n")
+        # file.close()
+
+    def initialize_all_generations_fitness_data(self, filename):
+        file = open(filename, "w")
+        file.write(",population_member\n")
+        for index in range(len(self.parents)):
+            if index != len(self.parents) - 1:
+                file.write(str(index) + ",")
+            else:
+                file.write(str(index) + ",\n")
+        for parent in self.parents:
+            fitness = self.parents[parent].fitness
+            file.write(str(fitness) + ",")
+
+        file.write("\n")
+        file.close()
 
     def Evolve_For_One_Generation(self, generation):
         self.Spawn()
@@ -44,10 +84,13 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children, "DIRECT")
 
         # self.Print()
+        self.save_all_generations_fitness_data(generation)
 
         self.Select()
 
+
         self.save_best_from_current_generation(generation)
+
 
     def Spawn(self):
         self.children = {}
@@ -97,28 +140,31 @@ class PARALLEL_HILL_CLIMBER:
 
         bestParent.generation = generation
         self.best_parents.append(bestParent)
-        self.generation_fitness.append(bestParent.fitness)
+        self.best_of_each_generation_fitness.append(bestParent.fitness)
 
-    def save_fitness_of_each_generation(self, output_filename):
+    def save_best_fitness_of_each_generation(self, output_filename):
 
         allFitnessesFile = open(output_filename, "w")
 
-        for i in range(len(self.generation_fitness)):
-            if i != len(self.generation_fitness) - 1:
+        for i in range(len(self.best_of_each_generation_fitness)):
+            if i != len(self.best_of_each_generation_fitness) - 1:
                 allFitnessesFile.write(str(i) + ",")
             else:
                 allFitnessesFile.write(str(i) + "\n")
 
-        for i in range(len(self.generation_fitness)):
-            if i != len(self.generation_fitness) - 1:
-                allFitnessesFile.write(str(self.generation_fitness[i]) + ",")
+        for i in range(len(self.best_of_each_generation_fitness)):
+            if i != len(self.best_of_each_generation_fitness) - 1:
+                allFitnessesFile.write(str(self.best_of_each_generation_fitness[i]) + ",")
             else:
-                allFitnessesFile.write(str(self.generation_fitness[i]))
+                allFitnessesFile.write(str(self.best_of_each_generation_fitness[i]))
 
         allFitnessesFile.close()
 
-    def print_fitness_of_each_generation(self):
-        print(self.generation_fitness)
+    def write_simulation_data_to_file(self, file_name):
+        numpy.save(file_name, self.generation_fitness)
+
+    def print_best_fitness_of_each_generation(self):
+        print(self.best_of_each_generation_fitness)
 
     def Print(self):
         for parent in self.parents:
