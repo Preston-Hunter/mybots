@@ -25,7 +25,3 @@ def swap_names():
             rename_constants_to_constants_with_cpg()
             return True
     return False
-
-os.system("python constants_test.py")
-swap_names()
-os.system("python constants_test.py")
