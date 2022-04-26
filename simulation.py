@@ -8,7 +8,10 @@ import time
 
 class SIMULATION:
 
-    def __init__(self, directOrGUI, solutionID):
+    def __init__(self, directOrGUI, solutionID, save_sensors):
+
+        self.save_sensors = save_sensors
+
         self.runtime = c.runtime
         #bool variable made by me, in order to have Drect run fast
         # and have GUI use time pause to have gui visible
@@ -35,7 +38,7 @@ class SIMULATION:
         # todo call save values?
         p.disconnect()
 
-    def Run(self):
+    def Run(self, cpg_tag):
         for step in range(self.runtime):
             p.stepSimulation()
 
@@ -46,6 +49,8 @@ class SIMULATION:
             # print(step)
             if self.GUI:
                 time.sleep(1.0 / 60)
+        if self.save_sensors:
+            self.robot.Save_Foot_Sensors(cpg_tag)
 
     def Get_Fitness(self):
         return self.robot.Get_Fitness()

@@ -57,7 +57,15 @@ class ROBOT:
 
     def Save_Sensors(self):
         for sensor in self.sensors:
-            sensor.Save_Values()
+            print(sensor)
+            self.sensors[sensor].Save_Values("")
+
+    def Save_Foot_Sensors(self, cpg_tag):
+        feet = ["BackLowerLeg", "FrontLowerLeg", "LeftLowerLeg", "RightLowerLeg"]
+        for sensor in self.sensors:
+            if sensor in feet:
+                self.sensors[sensor].Save_Values(cpg_tag)
+
 
     def Get_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.robotId, 0)

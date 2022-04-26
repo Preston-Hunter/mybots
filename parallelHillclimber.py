@@ -130,6 +130,19 @@ class PARALLEL_HILL_CLIMBER:
         print("Current Fitness: " + str(bestParent.fitness))
         bestParent.Evaluate("GUI")
 
+    def return_Best(self):
+        firstParent = True
+        for parent in self.parents:
+            if firstParent:
+                bestParent = self.parents[parent]
+                firstParent = False
+
+            if self.parents[parent].fitness < bestParent.fitness:
+                bestParent = self.parents[parent]
+
+        return bestParent
+
+
     def save_best_from_current_generation(self, generation):
         firstParent = True
         for parent in self.parents:
