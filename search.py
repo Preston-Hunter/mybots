@@ -43,5 +43,6 @@ no_cpg_best.Start_Simulation_Save_Sensors("DIRECT", "_no_cpg")
 
 
 os.system("python plotFitnessValues.py")
+os.system("python plotLegSensorData.py")
 
 
