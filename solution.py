@@ -70,7 +70,7 @@ class SOLUTION:
         # print(self.rec_motor_weights)
         # connect hidden to each other and to sensors
 
-        #connect sensors to each other
+        # connect sensors to each other
         rowInRecSensorWeights = []
         pre_rec_sensor_weights = []
         for sensor in range(0, c.numSensorNeurons):
@@ -139,10 +139,24 @@ class SOLUTION:
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)
         # permission denied can happen here
-        fitnessFile = open(fitnessFileName, "r")
-        self.fitness = float(fitnessFile.read())
-        fitnessFile.close()
-        os.system("del " + fitnessFileName)
+        try:
+            fitnessFile = open(fitnessFileName, "r")
+            self.fitness = float(fitnessFile.read())
+            fitnessFile.close()
+            os.system("del " + fitnessFileName)
+        except:
+            exception_triggered_file = open("exception.txt", "w")
+            try:
+                fitnessFile = open(fitnessFileName, "r")
+                self.fitness = float(fitnessFile.read())
+                fitnessFile.close()
+                os.system("del " + fitnessFileName)
+            except:
+                self.fitness = 0
+                exception_triggered_file.write("0")
+
+            exception_triggered_file.close()
+            print("---------------------------------------------------------------------")
 
     def Mutate(self):
         which_matrix = random.randint(0, 3)
@@ -154,8 +168,8 @@ class SOLUTION:
             row = random.randint(0, c.numHiddenNeurons - 1)
             col = random.randint(0, c.numMotorNeurons - 1)
             self.motor_weights[row, col] = random.random() * 2 - 1
-        elif which_matrix % 4 == 2: # mutate self connections
-            which_neuron_set = random.randint(0,2)
+        elif which_matrix % 4 == 2:  # mutate self connections
+            which_neuron_set = random.randint(0, 2)
             if which_neuron_set % 3 == 0:
                 if len(self.sensor_self_weights) != 0:
                     index = random.randint(0, len(self.sensor_self_weights) - 1)
@@ -173,8 +187,8 @@ class SOLUTION:
                     index = random.randint(0, len(self.motor_self_weights) - 1)
                     self.motor_self_weights[index] = random.random() * 2 - 1
         else:
-            which_rec_set = random.randint(0,2)
-            #modify rec_motor_weights
+            which_rec_set = random.randint(0, 2)
+            # modify rec_motor_weights
             if which_rec_set % 3 == 0:
                 row = random.randint(0, c.numMotorNeurons - 1)
                 col = random.randint(0, c.numMotorNeurons + c.numSensorNeurons + c.numHiddenNeurons - 2)
@@ -187,8 +201,6 @@ class SOLUTION:
                 row = random.randint(0, c.numSensorNeurons - 1)
                 col = random.randint(0, c.numSensorNeurons - 2)
                 self.rec_sensor_weights[row, col] = random.random() * 2 - 1
-
-
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
@@ -259,7 +271,7 @@ class SOLUTION:
         # -----------------CPG Sensor neuron---------------
         if self.useCPG:
             pyrosim.Send_Sensor_Neuron(name=i, linkName="CPG")
-            i+=1
+            i += 1
         # for sensor in range(0, c.numSensorNeurons):
         #     pyrosim.Send_Sensor_Neuron(name=sensor, linkName=str(sensor))
 
@@ -288,8 +300,6 @@ class SOLUTION:
         i += 1
         pyrosim.Send_Motor_Neuron(name=i, jointName="RightLeg_RightLowerLeg")
         i += 1
-
-
 
         # print("Synaptic Weights")
         # Sensor neuron weights

@@ -48,33 +48,34 @@ class PARALLEL_HILL_CLIMBER:
             n = self.current_generation
             self.Evolve_For_One_Generation(n)
 
+    # todo should this be done on parents?
     def save_all_generations_fitness_data(self, generation):
         # file = open(filename, "a")
         # file.write("generation " + str(generation) + ",")
         current_member = 0
-        for child in self.children:
-            self.generation_fitness[current_member, generation - 1] = self.children[child].fitness
+        for parent in self.parents:
+            self.generation_fitness[current_member, generation - 1] = self.parents[parent].fitness
             current_member += 1
 
         #     fitness = self.children[child].fitness
         #     file.write(str(fitness) + ",")
         # file.write("\n")
         # file.close()
-
-    def initialize_all_generations_fitness_data(self, filename):
-        file = open(filename, "w")
-        file.write(",population_member\n")
-        for index in range(len(self.parents)):
-            if index != len(self.parents) - 1:
-                file.write(str(index) + ",")
-            else:
-                file.write(str(index) + ",\n")
-        for parent in self.parents:
-            fitness = self.parents[parent].fitness
-            file.write(str(fitness) + ",")
-
-        file.write("\n")
-        file.close()
+    #
+    # def initialize_all_generations_fitness_data(self, filename):
+    #     file = open(filename, "w")
+    #     file.write(",population_member\n")
+    #     for index in range(len(self.parents)):
+    #         if index != len(self.parents) - 1:
+    #             file.write(str(index) + ",")
+    #         else:
+    #             file.write(str(index) + ",\n")
+    #     for parent in self.parents:
+    #         fitness = self.parents[parent].fitness
+    #         file.write(str(fitness) + ",")
+    #
+    #     file.write("\n")
+    #     file.close()
 
     def Evolve_For_One_Generation(self, generation):
         self.Spawn()
@@ -84,9 +85,10 @@ class PARALLEL_HILL_CLIMBER:
         self.Evaluate(self.children, "DIRECT")
 
         # self.Print()
-        self.save_all_generations_fitness_data(generation)
 
         self.Select()
+
+        self.save_all_generations_fitness_data(generation)
 
 
         self.save_best_from_current_generation(generation)

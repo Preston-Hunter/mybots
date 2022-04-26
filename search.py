@@ -1,4 +1,5 @@
 import os
+import analyze
 import rename_constants
 from parallelHillclimber import  PARALLEL_HILL_CLIMBER
 
@@ -18,8 +19,8 @@ phc.Evolve()
 #phc.Show_Best()
 print("No cpg results")
 phc.write_simulation_data_to_file(all_simulations_data_filename_no_cpg)
-phc.print_best_fitness_of_each_generation()
 print(phc.generation_fitness)
+phc.print_best_fitness_of_each_generation()
 
 
 rename_constants.swap_names()
@@ -34,4 +35,8 @@ print(phc_cpg.generation_fitness)
 phc_cpg.print_best_fitness_of_each_generation()
 
 rename_constants.swap_names()
+
+
+os.system("python plotFitnessValues.py")
+
 
