@@ -4,22 +4,16 @@ import rename_constants
 from parallelHillclimber import PARALLEL_HILL_CLIMBER
 import sys
 
+
 if len(sys.argv) >= 2:
-    wait_to_display = sys.argv[1]
-    if wait_to_display == "1":
-        wait_to_display = True
-    else:
-        wait_to_display = False
-else:
-    wait_to_display = False
-if len(sys.argv) >= 3:
-    abID = "_" + sys.argv[2]
+    abID = "_" + sys.argv[1]
 else:
     abID = ""
 
 # for _ in range(5):
 #     os.system("python generate.py")
 #     os.system("python simulate.py")
+
 
 # be sure to start program with constants_cpg.py existing
 all_simulations_data_filename_cpg = "all_data_cpg" + abID + ".npy"

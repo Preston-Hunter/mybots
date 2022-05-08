@@ -152,15 +152,16 @@ class SOLUTION:
             fitnessFile.close()
             os.system("del " + fitnessFileName)
         except:
-            exception_triggered_file = open("exception.txt", "w")
+            exception_triggered_file = open("exception.txt", "a")
             try:
+                time.sleep(1.0/30)
                 fitnessFile = open(fitnessFileName, "r")
                 self.fitness = float(fitnessFile.read())
                 fitnessFile.close()
                 os.system("del " + fitnessFileName)
             except:
                 self.fitness = 0
-                exception_triggered_file.write("0")
+                exception_triggered_file.write(str(self.myID) + " ")
 
             exception_triggered_file.close()
             print("---------------------------------------------------------------------")

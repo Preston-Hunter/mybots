@@ -1,7 +1,11 @@
 import numpy
 
 
-numABTrials = 1
+numABTrials = 10
+runWhile = True
+
+# ---------------------------------Below are also in child constants files-------------------------
+
 numSensorNeuronsWithCPG = 10
 
 runtime = 1000
@@ -14,8 +18,8 @@ amplitudeBack = numpy.pi / 4.0
 frequencyBack = 10
 phaseOffsetBack = -numpy.pi / 4.0
 
-numberOfGenerations = 3
-populationSize = 1
+numberOfGenerations = 20
+populationSize = 20
 
 numSensorNeurons = numSensorNeuronsWithCPG - 1
 numMotorNeurons = 8

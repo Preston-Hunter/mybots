@@ -17,7 +17,11 @@ class ROBOT:
         self.nn = NEURAL_NETWORK(brain_file_name)
 
         self.motors = {}
-        self.robotId = p.loadURDF("body.urdf")
+        try:
+            self.robotId = p.loadURDF("body.urdf")
+        except:
+            self.robotId = p.loadURDF("body.urdf")
+
         pyrosim.Prepare_To_Simulate(self.robotId)
 
         self.Prepare_To_Sense()
