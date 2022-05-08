@@ -49,5 +49,8 @@ no_cpg_best.Start_Simulation_Save_Sensors("DIRECT", "_no_cpg", abID)
 cpg_best.Start_Simulation_Save_Sensors("DIRECT", "_cpg", abID)
 print("hi")
 
+no_cpg_best.save_to_file("_no_cpg" + abID)
+cpg_best.save_to_file("_cpg" + abID)
+
 os.system("python plotFitnessValues"".py " + abID)
 os.system("python plotLegSensorData.py " + abID)

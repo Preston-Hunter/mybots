@@ -23,13 +23,13 @@ rightFootCPGSensorValues *= 3.0 / 2
 leftFootCPGSensorValues *= 4.0 / 2
 
 matplotlib.pyplot.scatter([i for i in range(len(backFootCPGSensorValues))], backFootCPGSensorValues,
-                          label="backfootCPG", linewidth=.01, marker=",")
+                          label="backfootCPG", linewidth=.01, marker=",", s=1)
 matplotlib.pyplot.scatter([i for i in range(len(frontFootCPGSensorValues))], frontFootCPGSensorValues,
-                          label="frontfootCPG", linewidth=.01, marker=",")
+                          label="frontfootCPG", linewidth=.01, marker=",", s=1)
 matplotlib.pyplot.scatter([i for i in range(len(rightFootCPGSensorValues))], rightFootCPGSensorValues,
-                          label="rightkfootCPG", linewidth=.01, marker=",")
+                          label="rightkfootCPG", linewidth=.01, marker=",", s=1)
 matplotlib.pyplot.scatter([i for i in range(len(leftFootCPGSensorValues))], leftFootCPGSensorValues,
-                          label="leftfootCPG", linewidth=.01, marker=",")
+                          label="leftfootCPG", linewidth=.01, marker=",", s=1)
 
 # ------------------------------------------------------------no cpg------------------------------------------
 backFootNoCPGSensorValues = numpy.load("data/BackLowerLeg_no_cpg" + id + ".npy")
@@ -48,13 +48,19 @@ rightFootNoCPGSensorValues *= -3.0 / 2
 leftFootNoCPGSensorValues *= -4.0 / 2
 
 matplotlib.pyplot.scatter([i for i in range(len(backFootNoCPGSensorValues))], backFootNoCPGSensorValues,
-                          label="backfoot", linewidth=.01, marker=",")
+                          label="backfoot", linewidth=.01, marker=",", s=1)
 matplotlib.pyplot.scatter([i for i in range(len(frontFootNoCPGSensorValues))], frontFootNoCPGSensorValues,
-                          label="frontfoot", linewidth=.01, marker=",")
+                          label="frontfoot", linewidth=.01, marker=",", s=1)
 matplotlib.pyplot.scatter([i for i in range(len(rightFootNoCPGSensorValues))], rightFootNoCPGSensorValues,
-                          label="rightkfoot", linewidth=.01, marker=",")
+                          label="rightkfoot", linewidth=.01, marker=",", s=1)
 matplotlib.pyplot.scatter([i for i in range(len(leftFootNoCPGSensorValues))], leftFootNoCPGSensorValues,
-                          label="leftfoot", linewidth=.01, marker=",")
+                          label="leftfoot", linewidth=.01, marker=",", s=1)
 
-matplotlib.pyplot.legend()
+
+matplotlib.pyplot.scatter([0], [6], linewidth=.01, marker=",", s=1)
+
+# legend area
+matplotlib.pyplot.legend(loc='upper center', ncol=4)
+
+matplotlib.pyplot.savefig("generational_data/footprints/footprint"+id+".png")
 matplotlib.pyplot.show()

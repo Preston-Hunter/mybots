@@ -134,6 +134,12 @@ class SOLUTION:
         self.Create_Brain()
         os.system("start /B python simulate.py " + directOrGUI + " " + str(self.myID) + " " + "False")
 
+    def Start_Simulation_Linear(self, directOrGUI):
+        self.Create_World()
+        self.Create_Body()
+        self.Create_Brain()
+        os.system("python simulate.py " + directOrGUI + " " + str(self.myID) + " " + "False")
+
     def Start_Simulation_Save_Sensors(self, directOrGUI, cpg_tag, abID):
         self.Create_World()
         self.Create_Body()
@@ -376,6 +382,17 @@ class SOLUTION:
                                      weight=(self.rec_sensor_weights[sensor][sen]))
 
         pyrosim.End()
+
+    def save_to_file(self, id):
+        numpy.save("best_robots/sensor_weights"+id+".npy", self.sensor_weights)
+        numpy.save("best_robots/motor_weights"+id+".npy", self.motor_weights)
+        numpy.save("best_robots/sensor_self_weights"+id+".npy", self.sensor_self_weights)
+        numpy.save("best_robots/motor_self_weights"+id+".npy", self.motor_self_weights)
+        numpy.save("best_robots/hidden_self_weights"+id+".npy", self.hidden_self_weights)
+        numpy.save("best_robots/rec_sensor_weights"+id+".npy", self.rec_sensor_weights)
+        numpy.save("best_robots/rec_hidden_weights"+id+".npy", self.rec_hidden_weights)
+        numpy.save("best_robots/rec_motor_weights"+id+".npy", self.rec_motor_weights)
+
 
     def Set_ID(self, ID):
         self.myID = ID

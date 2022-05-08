@@ -31,5 +31,5 @@ matplotlib.pyplot.plot(noCPGMean, label="no cpg values", linewidth=2)
 matplotlib.pyplot.plot(CPGMean, label="has cpg values", linewidth=2)
 
 matplotlib.pyplot.legend()
-matplotlib.pyplot.savefig("generational_data/plots/fitnessPlot"+id+".png")
+matplotlib.pyplot.savefig("generational_data/fitness_plots/fitnessPlot"+id+".png")
 matplotlib.pyplot.show()
