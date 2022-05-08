@@ -12,7 +12,7 @@ amplitudeBack = numpy.pi / 4.0
 frequencyBack = 10
 phaseOffsetBack = -numpy.pi / 4.0
 
-numberOfGenerations = 1
+numberOfGenerations = 3
 populationSize = 1
 
 numSensorNeurons = numSensorNeuronsWithCPG - 1

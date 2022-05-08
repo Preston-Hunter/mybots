@@ -37,12 +37,15 @@ phc_cpg.print_best_fitness_of_each_generation()
 
 rename_constants.swap_names()
 
+k = input("Continue: ")
 
-cpg_best.Start_Simulation_Save_Sensors("DIRECT", "_cpg")
-no_cpg_best.Start_Simulation_Save_Sensors("DIRECT", "_no_cpg")
+cpg_best.Start_Simulation_Save_Sensors("GUI", "_cpg")
+no_cpg_best.Start_Simulation_Save_Sensors("GUI", "_no_cpg")
 
 
 os.system("python plotFitnessValues.py")
 os.system("python plotLegSensorData.py")
+
+
 
 
