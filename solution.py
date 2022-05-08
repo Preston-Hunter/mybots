@@ -134,11 +134,12 @@ class SOLUTION:
         self.Create_Brain()
         os.system("start /B python simulate.py " + directOrGUI + " " + str(self.myID) + " " + "False")
 
-    def Start_Simulation_Save_Sensors(self, directOrGUI, cpg_tag):
+    def Start_Simulation_Save_Sensors(self, directOrGUI, cpg_tag, abID):
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
-        os.system("start /B python simulate.py " + directOrGUI + " " + str(self.myID) + " " + "True" + " " + cpg_tag)
+        cpg_tag = cpg_tag + abID
+        os.system("python simulate.py " + directOrGUI + " " + str(self.myID) + " " + "True" + " " + cpg_tag)
 
     def Wait_For_Simulation_To_End(self):
         fitnessFileName = "fitness" + str(self.myID) + ".txt"

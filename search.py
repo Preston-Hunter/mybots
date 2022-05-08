@@ -2,13 +2,27 @@ import os
 import solution
 import rename_constants
 from parallelHillclimber import  PARALLEL_HILL_CLIMBER
+import sys
+if len(sys.argv) >= 2:
+    wait_to_display = sys.argv[1]
+    if wait_to_display == "1":
+        wait_to_display = True
+    else:
+        wait_to_display = False
+else:
+    wait_to_display = False
+if len(sys.argv) >= 3:
+    abID = "_" + sys.argv[2]
+else:
+    abID = ""
 
 # for _ in range(5):
 #     os.system("python generate.py")
 #     os.system("python simulate.py")
+
 # be sure to start program with constants_cpg.py existing
-all_simulations_data_filename_cpg = "all_data_cpg.npy"
-all_simulations_data_filename_no_cpg = "all_data_no_cpg.npy"
+all_simulations_data_filename_cpg = "all_data_cpg" + abID + ".npy"
+all_simulations_data_filename_no_cpg = "all_data_no_cpg" + abID + ".npy"
 rename_constants.rename_constants_to_constants_with_cpg()
 
 
@@ -36,15 +50,15 @@ print(phc_cpg.generation_fitness)
 phc_cpg.print_best_fitness_of_each_generation()
 
 rename_constants.swap_names()
+#if (wait_to_display):
+# k = input("Continue: ")
 
-k = input("Continue: ")
+no_cpg_best.Start_Simulation_Save_Sensors("DIRECT", "_no_cpg",abID)
+cpg_best.Start_Simulation_Save_Sensors("DIRECT", "_cpg",abID)
+print("hi")
 
-cpg_best.Start_Simulation_Save_Sensors("GUI", "_cpg")
-no_cpg_best.Start_Simulation_Save_Sensors("GUI", "_no_cpg")
-
-
-os.system("python plotFitnessValues.py")
-os.system("python plotLegSensorData.py")
+os.system("python plotFitnessValues"".py " + abID)
+os.system("python plotLegSensorData.py " + abID)
 
 
 

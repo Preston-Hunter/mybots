@@ -1,5 +1,7 @@
 import numpy
 
+
+numABTrials = 1
 numSensorNeuronsWithCPG = 10
 
 runtime = 1000

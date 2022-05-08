@@ -176,7 +176,8 @@ class PARALLEL_HILL_CLIMBER:
         allFitnessesFile.close()
 
     def write_simulation_data_to_file(self, file_name):
-        numpy.save(file_name, self.generation_fitness)
+        location = "generational_data/" + file_name
+        numpy.save(location, self.generation_fitness)
 
     def print_best_fitness_of_each_generation(self):
         print(self.best_of_each_generation_fitness)

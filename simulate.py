@@ -11,7 +11,6 @@ else:
 if len(sys.argv) >= 4:
 
     if str(sys.argv[3]) == "True":
-        print("--------------------------true----------------------------------------")
         save_sensors = True
     else:
         save_sensors = False

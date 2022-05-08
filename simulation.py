@@ -29,7 +29,7 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT(self.runtime, solutionID)
 
-        if solutionID == "0":
+        if solutionID == "-1": # print neurons here. -1 will print nothing
             self.robot.nn.print_synapses(self.robot.nn.neurons)
 
 
