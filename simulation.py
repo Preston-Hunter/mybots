@@ -8,8 +8,8 @@ import time
 
 class SIMULATION:
 
-    def __init__(self, directOrGUI, solutionID, save_sensors):
-
+    def __init__(self, directOrGUI, solutionID, save_sensors, printFitness):
+        self.printFitness = printFitness
         self.save_sensors = save_sensors
 
         self.runtime = c.runtime
@@ -51,6 +51,9 @@ class SIMULATION:
                 time.sleep(1.0 / 60)
         if self.save_sensors:
             self.robot.Save_Foot_Sensors(cpg_tag)
+        if self.printFitness:
+            print(self.Get_Fitness())
+
 
     def Get_Fitness(self):
         return self.robot.Get_Fitness()

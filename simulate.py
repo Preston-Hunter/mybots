@@ -22,7 +22,16 @@ if len(sys.argv) >= 5:
 else:
     cpg_tag = ""
 
-simulation = SIMULATION(directOrGUI, solutionID, save_sensors)
+if len(sys.argv) >= 6:
+    printFitness = sys.argv[5]
+    if printFitness == "1":
+        printFitness = True
+    else:
+        printFitness = False
+else:
+    printFitness = False
+
+simulation = SIMULATION(directOrGUI, solutionID, save_sensors, printFitness)
 simulation.Run(cpg_tag)
 # can be printed to print fitness
 simulation.Get_Fitness()

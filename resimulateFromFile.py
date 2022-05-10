@@ -2,8 +2,8 @@ import solution
 import numpy
 
 best_solutions = []
-bestCPG = "0"
-bestNoCPG = "0"
+bestCPG = "22"
+bestNoCPG = "28"
 # ------------------------- cpg solution -----------------------------
 
 bestCPGID = "_cpg_" + bestCPG
